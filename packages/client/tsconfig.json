@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noUnusedParameters": false,
+    "jsx": "preserve",
+    "module": "ESNext",
+    "rootDir": "./src"
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.vue"]
+}

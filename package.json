@@ -1,0 +1,106 @@
+{
+  "name": "waline",
+  "version": "0.0.2",
+  "private": true,
+  "scripts": {
+    "admin:analyze": "npm --dir=packages/admin analyze",
+    "admin:build": "pnpm --dir=packages/admin build",
+    "admin:dev": "pnpm --dir=packages/admin dev",
+    "apidoc": "apidoc -i packages/server/src/logic -o docs/src/.vuepress/dist/api",
+    "build": "pnpm admin:build && pnpm client:build",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "clean": "lerna run clean --stream",
+    "client:build": "pnpm --dir=packages/client build",
+    "client:dev": "pnpm --dir=packages/client dev",
+    "docs:build": "pnpm --dir=docs run build && pnpm apidoc",
+    "docs:dev": "pnpm --dir=docs run dev",
+    "lint": "pnpm lint:eslint && pnpm lint:prettier && pnpm lint:stylelint",
+    "lint:eslint": "eslint --ext .js,.vue,.ts --fix .",
+    "lint:md": "markdownlint docs/ --fix",
+    "lint:prettier": "prettier --check --write .",
+    "lint:stylelint": "stylelint packages/*/src/**/*.scss --fix",
+    "packages:check-update": "pnpm dlx npm-check-updates --deep",
+    "packages:update": "pnpm dlx npm-check-updates --deep -u && pnpm i && pnpm -r up",
+    "prepare": "husky install",
+    "server:dev": "vercel dev ./example --listen 9090",
+    "test": "vitest"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "nano-staged": {
+    "*.md": [
+      "markdownlint --fix",
+      "prettier --write"
+    ],
+    "*.{js,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,yml}": [
+      "prettier --write"
+    ],
+    "package.json": [
+      "sort-package-json"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "devDependencies": {
+    "@babel/core": "7.20.12",
+    "@babel/eslint-parser": "7.19.1",
+    "@commitlint/cli": "17.4.2",
+    "@commitlint/config-conventional": "17.4.2",
+    "@typescript-eslint/eslint-plugin": "5.49.0",
+    "@typescript-eslint/parser": "5.49.0",
+    "@vue/eslint-config-prettier": "7.0.0",
+    "@vue/eslint-config-typescript": "11.0.2",
+    "@types/node": "18.11.18",
+    "apidoc": "0.53.1",
+    "c8": "7.12.0",
+    "commitizen": "4.3.0",
+    "conventional-changelog-cli": "2.2.2",
+    "cross-env": "7.0.3",
+    "cz-conventional-changelog": "3.3.0",
+    "eslint": "8.32.0",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-react": "7.32.1",
+    "eslint-plugin-vue": "9.9.0",
+    "husky": "8.0.3",
+    "markdownlint-cli": "0.33.0",
+    "nano-staged": "0.8.0",
+    "prettier": "2.8.3",
+    "rimraf": "4.1.2",
+    "sass": "1.57.1",
+    "sort-package-json": "2.2.0",
+    "stylelint": "14.16.1",
+    "stylelint-config-hope": "1.0.1",
+    "typescript": "4.9.4",
+    "vercel": "28.13.1",
+    "vite": "4.0.4",
+    "vitest": "0.28.2"
+  },
+  "packageManager": "pnpm@7.25.0",
+  "apidoc": {
+    "title": "Waline API Documentation"
+  },
+  "pnpm": {
+    "overrides": {
+      "@waline/client": "workspace:*"
+    },
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search",
+        "@types/react",
+        "react",
+        "react-dom",
+        "ts-node",
+        "typescript"
+      ]
+    }
+  }
+}
